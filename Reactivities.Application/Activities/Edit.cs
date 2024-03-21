@@ -8,7 +8,7 @@ namespace Reactivities.Application.Activities
     {
         public class Command : IRequest
         {
-            public Domain.Activity Activity { get; set; }
+            public Domain.Activity Activity { get; set; } = null!;
         }
 
         public class Handler : IRequestHandler<Command>
