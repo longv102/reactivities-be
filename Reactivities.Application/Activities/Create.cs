@@ -10,21 +10,22 @@ namespace Reactivities.Application.Activities
         {
             public Activity Activity { get; set; }
 
-            public class Handler : IRequestHandler<Command>
+        }
+        public class Handler : IRequestHandler<Command>
+        {
+            private readonly ReactivitiesContext _context;
+
+            public Handler(ReactivitiesContext context)
             {
-                private readonly ReactivitiesContext _context;
+                _context = context;
+            }
 
-                public Handler(ReactivitiesContext context)
-                {
-                    _context = context;
-                }
+            public async Task Handle(Command request, CancellationToken cancellationToken)
+            {
 
-                public async Task Handle(Command request, CancellationToken cancellationToken)
-                {
-                    _context.Activities.Add(request.Activity);
+                _context.Activities.Add(request.Activity);
 
-                    await _context.SaveChangesAsync();
-                }
+                await _context.SaveChangesAsync();
             }
         }
     }
